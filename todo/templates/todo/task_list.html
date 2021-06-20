@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background-color: rgb(189, 189, 189);
+            justify-content: center;
+            flex-direction: column;
+        }
+        h2{
+            align-self: center;
+            background-color: purple;
+            padding: 1rem;
+            color: #fff;
+            border-radius: 4px;
+        }
+        table{
+            height: 50%;
+            background-color: #fff;
+            padding:1rem;
+            width: 50%;
+            margin: auto;
+            border-radius: 4px;
+            box-shadow: 1px 1px 5px rgb(105, 105, 105);
+        }
+        .table_heading{
+            background-color: rgb(97, 141, 40);
+            color: #fff;
+            border-radius: 4px;
+        }
+        table a{
+            padding: 0.5rem;
+            /* background-color: rgb(100, 148, 100); */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+
+        }
+        table td{
+            background-color: rgb(243, 243, 243);
+            text-align: center;
+        }
+        .view a{
+            background-color: rgb(31, 133, 31);
+        }
+        .edit a{
+            background-color: rgb(51, 51, 202);
+        }
+        .delete a{
+            background-color: rgb(202, 52, 52);
+        }
+        .create_task a{
+            background-color: green;
+        }
+        .control_panel{
+            margin-left:5rem;
+        }
+        .login_logout{
+            padding:0.5rem 1rem;
+            background-color: purple;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <h2>ToDo  App</h2>
+<div class="control_panel">
+    <span>Logged in User: &nbsp;{{request.user}}</span>
+    <br>
+    <br>
+    <a class="login_logout" href="{% url 'logout' %}">logout</a>
+
+    {% else %}
+    <a class="login_logout" href="{% url 'login' %}">login</a>
+
+    {% endif %}
+</div>
+    <table>
+        <tr class="table_heading">
+            <th>Items</th>
+            <!-- <th>Empty header</th> -->
+        </tr>
+    {% for task in task  %}
+    <tr>
+        <td>{{task.title}}</td>
+        <!-- <td><a href="detail/{{task.id}}">View</a></td> -->
+        <td class="view"><a href="{% url 'task_detail' task.id %}">View</a></td>
+        <td class="edit"><a href="{% url 'task_update' task.id %}">Edit</a></td>
+        <td class="delete"><a href="{% url 'task_delete' task.id %}">Delete</a></td>
+    {% empty %}
+    <td>No Item in the list</td>
+
+    </tr>
+    {% endfor %}
+    <tr>
+    <td class="create_task"><a href="{% url 'task_create' %}">Create Task</a></td>&nbsp;
+</tr>
+
+    </table>
+</body>
+</html>

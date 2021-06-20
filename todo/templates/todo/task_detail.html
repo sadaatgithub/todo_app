@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(116, 173, 90);
+
+    }
+    h4 a{
+            background-color: rgb(201, 37, 31);
+            padding: 0.5rem;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 300;
+            text-decoration: none;
+        }
+</style>
+<body>
+    <h4><a href="{% url 'task' %}"> Go back</a>
+    <h1>Task Detail</h1>
+    <h3> Description : {{task.desc}}</h3>
+</body>
+</html>
